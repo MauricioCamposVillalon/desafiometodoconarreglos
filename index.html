@@ -54,12 +54,43 @@
             texto += `<tr><td>${traumatologia[i].hora}</td><td>${traumatologia[i].especialista}</td><td>${traumatologia[i].paciente}</td><td>${traumatologia[i].rut}</td><td>${traumatologia[i].prevision}</td></tr>`;
         }
         texto += '</tbody></table></div>';
-        //document.getElementById("cuerpo-tabla").innerHTML = texto;
         document.write(texto);
     }
-    mostartrauma();
-    radiologia.shift();
-    radiologia.pop();
+    function mostrardental() {
+        document.write(`<h4 class="text-center">Listado atencion Dental</h4>`);
+        for (let i = 0; i < dental.length; i++) {
+            let dental_nuevo = [dental[i].hora, dental[i].especialista, dental[i].paciente, dental[i].rut, dental[i].prevision];
+            document.write(`<p class="text-center mx-2">${dental_nuevo.join("-")}</p><p></p>`);
+        }
+
+    }
+    function centromedico() {
+        let centro = radiologia.concat(traumatologia);
+        centro = centro.concat(dental);
+        document.write(`<hr><br><h3 class="text-center">Listado de Pacientes Centro Medico</h3>`)
+        centro.forEach(cent => document.write(`<p class="text-center">${cent.paciente}</p>`));
+    }
+    mostartrauma(); // muestra tabla con los datos agregados en pacientes trauma
+    radiologia.shift(); // elimina el primer dato en radiologia
+    radiologia.pop(); // elimina el ultimo datoen radiologia
+    mostrardental(); // imprime la lista de pacientes dentales
+    centromedico(); // Imprime el listado de los pacientes
+
+    let isapreDental = dental.filter(function(isapre){
+        return isapre.prevision === "ISAPRE"
+    });
+    console.log(isapreDental);
+    document.write(`<hr><br><h3 class="text-center">Pacientes con Isapre en atencion Dental</h3>`)
+    isapreDental.forEach(isDent => document.write(`<p class="text-center">${isDent.paciente} - Isapre</p>`));
+    
+
+    let fonasaTraumatologia = traumatologia.filter(function(fonasa){
+        return fonasa.prevision === "FONASA"
+    });
+    console.log(fonasaTraumatologia);
+    document.write(`<hr><br><h3 class="text-center">Pacientes con Fonasa en traumatologia</h3>`)
+    fonasaTraumatologia.forEach(fonTrau => document.write(`<p class="text-center">${fonTrau.paciente} - Fonasa</p>`));
+    
 
     //Agregar código para el desafio 2 aquí
 
